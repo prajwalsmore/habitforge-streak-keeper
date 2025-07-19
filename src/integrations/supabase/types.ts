@@ -14,7 +14,80 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      badges: {
+        Row: {
+          id: string
+          title: string
+          unlocked_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          unlocked_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          unlocked_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      checkins: {
+        Row: {
+          created_at: string
+          date: string
+          habit_id: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string
+          habit_id: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          habit_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "checkins_habit_id_fkey"
+            columns: ["habit_id"]
+            isOneToOne: false
+            referencedRelation: "habits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      habits: {
+        Row: {
+          created_at: string
+          goal_type: string
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          goal_type: string
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          goal_type?: string
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
