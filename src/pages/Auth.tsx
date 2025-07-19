@@ -32,20 +32,20 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`
-        }
       });
 
       if (error) throw error;
 
-      toast({
-        title: "Check your email",
-        description: "We've sent you a confirmation link to complete your registration.",
-      });
+      if (data.user) {
+        toast({
+          title: "Welcome to HabitForge!",
+          description: "Your account has been created successfully.",
+        });
+        navigate("/");
+      }
     } catch (error: any) {
       toast({
         title: "Error",
